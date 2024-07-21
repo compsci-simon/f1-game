@@ -1,5 +1,4 @@
 import { publicProcedure, router } from "../trpc";
-import fs from 'fs'
 import jimp from 'jimp'
 const cache: { width: number, height: number, bitmap: number[][] } = {
   width: 0,
