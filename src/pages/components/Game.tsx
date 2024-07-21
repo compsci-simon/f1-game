@@ -42,8 +42,14 @@ export default function Game() {
 
   return (
     <div style={{ display: 'flex' }}>
+      <div style={{ width: '100vw', height: '100vh', position: 'absolute' }}>
+        <svg style={{ width: '100%', height: '100%' }} viewBox="0 0 100 100" preserveAspectRatio="none">
+          <line x1="50" y1="10" x2="50" y2="90" stroke="red" stroke-width="1" />
+          <line x1="10" y1="50" x2="90" y2="50" stroke="red" stroke-width="1" />
+        </svg>
+      </div>
       <div id='car-wrapper' style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
-        <div ref={carRef} id='car' style={{ zIndex: 100, position: 'absolute', left: '50%', top: '50%', width: '10px', height: '20px', backgroundColor: 'blue' }}></div>
+        <div ref={carRef} id='car' style={{ zIndex: 100, position: 'absolute', left: '50%', top: '50%' }}></div>
         <div ref={outerMapDiv}>
           <div ref={innerMapDiv}>
             <img id='track-image' src='rbring.png' style={{ width: '100%', height: '100%' }} />

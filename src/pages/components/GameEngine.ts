@@ -15,7 +15,7 @@ export
 
   constructor(carDiv: RefObject<HTMLDivElement>, divRef: RefObject<HTMLDivElement>, outerMapDiv: RefObject<HTMLDivElement>, innerMapDiv: RefObject<HTMLDivElement>) {
     this.physicsEngine = new PhysicsEngine();
-    this.car = new Car({ x: 100, y: 100 }, 0, 1.5);
+    this.car = new Car({ x: 100, y: 100 }, 0, 1.5, carDiv);
     this.running = true;
     this.carDiv = carDiv
     this.divRef = divRef
@@ -25,6 +25,7 @@ export
 
     window.addEventListener('keydown', this.handleKeyDown.bind(this));
     window.addEventListener('keyup', this.handleKeyUp.bind(this));
+    this.car.render()
   }
 
   setMapDimensions(width: number, height: number) {
@@ -66,17 +67,17 @@ export
   }
 
   private render() {
-    this.renderCar(this.car)
+    this.renderMap(this.car)
   }
 
-  private renderCar(car: Car) {
+  private renderMap(car: Car) {
     if (this.outerMapDiv.current && this.innerMapDiv.current) {
       this.outerMapDiv.current!.style.position = 'absolute'
       this.outerMapDiv.current!.style.transformOrigin = 'center'
       this.outerMapDiv.current!.style.top = '50%'
       this.outerMapDiv.current!.style.left = '50%'
-      this.outerMapDiv.current!.style.width = '10px'
-      this.outerMapDiv.current!.style.height = '10px'
+      // this.outerMapDiv.current!.style.width = '10px'
+      // this.outerMapDiv.current!.style.height = '10px'
       this.outerMapDiv.current!.style.transform = `rotate(${(-(car.angle - Math.PI / 2) / Math.PI * 180)}deg)`
       this.outerMapDiv.current!.style.backgroundColor = 'lightblue'
       this.innerMapDiv.current!.style.position = 'absolute'

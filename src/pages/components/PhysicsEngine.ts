@@ -12,7 +12,17 @@ export class PhysicsEngine {
   }
 
   applyPhysics(car: Car, deltaTime: number) {
-    const steeringAngleRad = this.degreesToRadians(car.steeringInput * car.maxSteeringAngle);
+    let steeringAngleRad = 0
+    if (car.steeringInput != 0) {
+      const newSteeringAngle = Math.max(Math.min(car.currentSteeringAngle + (car.steeringInput * car.maxSteeringAngle) * deltaTime * 1000, car.maxSteeringAngle), -car.maxSteeringAngle)
+      car.currentSteeringAngle = newSteeringAngle
+      steeringAngleRad = this.degreesToRadians(car.currentSteeringAngle)
+    } else if (car.currentSteeringAngle != 0) {
+      const change = car.currentSteeringAngle > 0 ? Math.min(-1, -car.currentSteeringAngle) : Math.max(1, car.currentSteeringAngle)
+      const newSteeringAngle = car.currentSteeringAngle += change
+      car.currentSteeringAngle = newSteeringAngle
+      steeringAngleRad = this.degreesToRadians(car.currentSteeringAngle)
+    }
 
     const isOnTrack = this.carOnTrack(car.position.x, car.position.y)
     car.velocity += car.accelerationInput * (isOnTrack ? 1 : 0.5) * car.maxAcceleration * deltaTime;
